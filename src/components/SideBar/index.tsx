@@ -21,7 +21,7 @@ function SideBar() {
   const actionsState = useAppSelector((state) => state.actions);
   const { showSideBar } = actionsState;
   const [dashboardItem, setDashboardItem] = useState(false);
-  const [projectItem, setProjectItem] = useState(false);  
+  const [projectItem, setProjectItem] = useState(false);
   const { profile } = profileState;
 
   function handleDashboardClick() {
@@ -54,9 +54,9 @@ function SideBar() {
         </div>
         <div className="list-container">
           <List>
-            <ListButtonItem 
-              title="Dashboard" 
-              onClick={() => handleDashboardClick()} 
+            <ListButtonItem
+              title="Dashboard"
+              onClick={() => handleDashboardClick()}
               //selected={!projectItem || dashboardItem || projectSelectedId !== 0}
             >
               <DashboardIcon />
@@ -67,7 +67,7 @@ function SideBar() {
                 handleProjectClick();
               }}
               disabled={projectSelectedId == 0 ? true : false}
-             // selected={projectItem || projectSelectedId !== 0}
+              // selected={projectItem || projectSelectedId !== 0}
             >
               <FolderIcon />
             </ListButtonItem>

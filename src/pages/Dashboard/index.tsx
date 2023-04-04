@@ -118,7 +118,7 @@ function Dashboard() {
                     key={project.name}
                     project={project}
                     onClick={(projectId) => {
-                      dispatch(selectProjectId(projectId))
+                      dispatch(selectProjectId(projectId));
                       navigate(`project/${projectId}`);
                     }}
                     editProject={() => showEditProject(project)}

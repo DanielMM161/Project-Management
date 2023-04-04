@@ -45,7 +45,7 @@ function ProjectDetail() {
   }, [projectId]);
 
   function fetchProjectById(id: number) {
-    dispatch(selectProjectId(projectId))
+    dispatch(selectProjectId(projectId));
     dispatch(getProjectId(id)).then((result) => {
       const { payload } = result;
       if (payload) setActualProject(payload);

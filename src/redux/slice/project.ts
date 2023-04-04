@@ -10,7 +10,7 @@ export const projectSlice = createSlice({
       state.projects = state.projects.filter((item) => item.id !== action.payload);
     },
     selectProjectId: (state, action) => {
-      state.projectSelectedId = action.payload
+      state.projectSelectedId = action.payload;
     },
   },
   extraReducers: (build) => {
