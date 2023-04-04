@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Avatar, Chip, Divider, Tab, Tabs, TextField, Typography, Box } from '@mui/material';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
 import { initialTaskValue, Task } from '../../models/task';
 import { assignUser, deleteTask, getTaskById, removeUser, updateTask } from '../../services/task';
@@ -14,7 +10,6 @@ import { createSubTask, updateDoneSubTask } from '../../services/subTask';
 import SubTaskItem from '../SubTaskItem';
 import MenuPriorityTask from '../MenuPriorityTask';
 import { InfoContainer, StyledTaskDetail } from './styled';
-import dayjs from 'dayjs';
 
 interface TabPanelProps {
   children: React.ReactNode;
@@ -62,6 +57,7 @@ function TaskDetail({ members, taskId }: TaskDetailProps) {
   const [editing, setEditing] = useState(false);
   const [showAddSubTask, setShowAddSubTask] = useState(false);
   const [value, setValue] = useState(0);
+  const [dueDate, setDueDate] = useState("");
 
   useEffect(() => {
     function fetchTask() {
@@ -71,7 +67,7 @@ function TaskDetail({ members, taskId }: TaskDetailProps) {
         if (payload) {
           const item = result.payload as Task;
           setTask(item);
-          setTaskDescription(item.description);
+          setTaskDescription(item.description);          
         }
         setIsLoading(false);
       });
@@ -221,6 +217,7 @@ function TaskDetail({ members, taskId }: TaskDetailProps) {
   }
 
   function handleChangeDueDate(dueDate: string) {
+    console.log("handleChangeDueDate --> ", dueDate)
     const newDueDate = new Date(new Date(dueDate).getTime());
 
     dispatch(updateTask({ ...task, priority: task.priority.toString(), dueDate: newDueDate.toISOString() })).then(
@@ -234,8 +231,11 @@ function TaskDetail({ members, taskId }: TaskDetailProps) {
   }
 
   function formatDate(date: string) {
+    console.log("date --> ", date)
     const fecha = new Date(date);
-    return `${fecha.getMonth() + 1}/${fecha.getDate() + 1}/${fecha.getFullYear()}`;
+    console.log("date --> ",  `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate() + 1}`)
+   
+    return `${fecha.getFullYear()}-${("0" + (fecha.getMonth() + 1)).slice(-2)}-${("0" + fecha.getDate()).slice(-2)}`;
   }
 
   return (
@@ -295,12 +295,13 @@ function TaskDetail({ members, taskId }: TaskDetailProps) {
             <Typography variant="subtitle2" display="block" gutterBottom>
               Due Date
             </Typography>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                defaultValue={dayjs(formatDate(task?.dueDate.toString()))}
-                onChange={(value) => handleChangeDueDate(value?.toString() ?? '')}
-              />
-            </LocalizationProvider>
+            <input 
+              type="date" 
+ 
+              value={formatDate(task?.dueDate.toString())}              
+              onChange={(e) => handleChangeDueDate(e.target.value)}                           
+            >
+            </input>            
           </InfoContainer>
 
           <InfoContainer>
