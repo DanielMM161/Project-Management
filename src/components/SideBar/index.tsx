@@ -17,7 +17,7 @@ function SideBar() {
   const navigate = useNavigate();
   const profileState = useAppSelector((state) => state.profile);
   const projectState = useAppSelector((state) => state.projects);
-  const { projectSelectedId } = projectState;
+  const { projectSelectedId, projectSelectedName } = projectState;
   const actionsState = useAppSelector((state) => state.actions);
   const { showSideBar } = actionsState;
   const [dashboardItem, setDashboardItem] = useState(false);
@@ -62,9 +62,11 @@ function SideBar() {
               <DashboardIcon />
             </ListButtonItem>
             <ListButtonItem
-              title="Project"
+              title={projectSelectedName}
               onClick={() => {
-                handleProjectClick();
+                if (projectSelectedId !== 0) {
+                  handleProjectClick();
+                }
               }}
               disabled={projectSelectedId == 0 ? true : false}
               // selected={projectItem || projectSelectedId !== 0}

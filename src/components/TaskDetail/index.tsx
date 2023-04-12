@@ -57,8 +57,7 @@ function TaskDetail({ members, taskId }: TaskDetailProps) {
   const [editing, setEditing] = useState(false);
   const [showAddSubTask, setShowAddSubTask] = useState(false);
   const [value, setValue] = useState(0);
-  const [dueDate, setDueDate] = useState("");
-
+  
   useEffect(() => {
     function fetchTask() {
       setIsLoading(true);
