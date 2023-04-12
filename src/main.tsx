@@ -12,7 +12,7 @@ const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID ?? "";
 
 root.render(
   <Provider store={store}>
-    <GoogleOAuthProvider clientId={clientId}>
+    <GoogleOAuthProvider clientId="231061136758-nj9oept9kuttom4a9je2ef5ujbhjm1fe.apps.googleusercontent.com">
       <App />
     </GoogleOAuthProvider>
   </Provider>
