@@ -53,8 +53,11 @@ const Layout = styled('div')(({ theme }) => ({
         }
       },
     },
+    [`@media screen and (min-width: ${theme.breakpoints.values.lg}px)`]: {
+      padding: '20px 50px'
+    },
     [`@media screen and (min-width: ${theme.breakpoints.values.xl}px)`]: {
-      padding: '50px 200px',
+      padding: '50px 180px',
     },
   },
   '& .right-side': {
@@ -75,7 +78,15 @@ const Layout = styled('div')(({ theme }) => ({
       width: '20%',
     },
     [`@media screen and (max-width: ${theme.breakpoints.values.md}px)`]: {
-      display: 'none',
+      display: 'none',      
+    },
+    [`@media screen and (max-width: ${theme.breakpoints.values.xl}px)`]: {
+      '& #first-logo': {
+        width: '40%',        
+      },
+      '& #second-logo': {        
+        width: '24%',
+      },    
     },
   },
  

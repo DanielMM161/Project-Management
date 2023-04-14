@@ -12,6 +12,6 @@ export interface UpdateTaskRequest {
   id: number;
   title: string;
   description: string;
-  priority: string;
+  priorityTask: string;
   dueDate: string;
 }

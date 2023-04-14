@@ -64,7 +64,7 @@ const updateTask = createAsyncThunk('updateTask', async (request: UpdateTaskRequ
     .put(`tasks/${request.id}`, {
       title: request.title,
       description: request.description,
-      priority: request.priority,
+      priorityTask: request.priorityTask,
       dueDate: request.dueDate,
     })
     .then((result) => {

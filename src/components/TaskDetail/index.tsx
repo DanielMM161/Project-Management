@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Avatar, Chip, Divider, Tab, Tabs, TextField, Typography, Box } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux.hook';
-import { initialTaskValue, Task } from '../../models/task';
+import { initialTaskValue, Priority, Task } from '../../models/task';
 import { assignUser, deleteTask, getTaskById, removeUser, updateTask } from '../../services/task';
 import { User } from '../../models/user';
 import SelectUser from '../SelectUser';
@@ -122,7 +122,7 @@ function TaskDetail({ members, taskId }: TaskDetailProps) {
           id: task.id,
           title: taskTitle,
           description: task.description,
-          priority: task.priorityTask.toString(),
+          priorityTask: task.priorityTask.toString(),
           dueDate: task.dueDate.toString(),
         }),
       ).then((result) => {
@@ -141,27 +141,27 @@ function TaskDetail({ members, taskId }: TaskDetailProps) {
           id: task.id,
           title: task.title,
           description: taskDescription,
-          priority: task.priorityTask.toString(),
+          priorityTask: task.priorityTask.toString(),
           dueDate: task.dueDate.toString(),
         }),
       );
     }
   }
 
-  function handleUpdatePriority(priority: string) {
-    if (priority !== task.priorityTask.toString()) {
+  function handleUpdatePriority(priorityTask: string) {    
+    if (priorityTask !== task.priorityTask.toString()) {
       dispatch(
         updateTask({
           id: task.id,
           title: task.title,
           description: task.description,
-          priority,
+          priorityTask,
           dueDate: task.dueDate.toString(),
         }),
       ).then((result) => {
-        const { payload } = result;
+        const { payload } = result;        
         if (payload) {
-          setTask(payload);
+          setTask({...task, priorityTask: payload.priorityTask ?? task.priorityTask});
         }
       });
     }
@@ -218,7 +218,7 @@ function TaskDetail({ members, taskId }: TaskDetailProps) {
   function handleChangeDueDate(dueDate: string) {    
     const newDueDate = new Date(new Date(dueDate).getTime());
 
-    dispatch(updateTask({ ...task, priority: task.priorityTask.toString(), dueDate: newDueDate.toISOString() })).then(
+    dispatch(updateTask({ ...task, priorityTask: task.priorityTask.toString(), dueDate: newDueDate.toISOString() })).then(
       (result) => {
         const { payload } = result;
         if (payload) {
